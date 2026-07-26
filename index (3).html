@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="CreatorHub - premium tools for creators, musicians and gamers">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <title>CreatorHub</title>
+</head>
+<body>
+  <div id="splash" class="splash">
+    <div class="logo-mark">✦</div>
+    <h1>Creator<span>Hub</span></h1>
+    <p>Build. Create. Dominate.</p>
+    <div class="loader"></div>
+  </div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">WELCOME BACK</p>
+        <h1>Creator<span>Hub</span></h1>
+      </div>
+      <button class="icon-button" id="settingsButton" aria-label="Settings">
+        <span class="material-icons">settings</span>
+      </button>
+    </header>
+
+    <main id="app">
+      <section class="hero-card">
+        <div class="hero-content">
+          <span class="pill"><span class="status-dot"></span> CREATOR MODE</span>
+          <h2>Turn ideas into <span>impact.</span></h2>
+          <p>Your creative command center for content, music and gaming.</p>
+          <div class="hero-stats">
+            <div><strong id="streakCount">0</strong><small>DAY STREAK</small></div>
+            <div><strong id="achievementCount">0</strong><small>ACHIEVEMENTS</small></div>
+            <div><strong id="favoriteCount">0</strong><small>FAVORITES</small></div>
+          </div>
+        </div>
+        <div class="hero-orb">✦</div>
+      </section>
+
+      <section class="quote-card">
+        <span class="material-icons">format_quote</span>
+        <p id="dailyQuote">Great things are built one idea at a time.</p>
+        <small>DAILY INSPIRATION</small>
+      </section>
+
+      <div class="search-wrap">
+        <span class="material-icons">search</span>
+        <input id="searchInput" type="search" placeholder="Search tools..." autocomplete="off">
+        <kbd>⌘ K</kbd>
+      </div>
+
+      <section class="section-heading">
+        <div><p class="eyebrow">EXPLORE</p><h2>Creative toolkit</h2></div>
+        <span class="tool-count" id="toolCount">20 tools</span>
+      </section>
+
+      <div class="category-tabs">
+        <button class="tab active" data-category="all">All</button>
+        <button class="tab" data-category="youtube">YouTube</button>
+        <button class="tab" data-category="music">Music</button>
+        <button class="tab" data-category="gaming">Gaming</button>
+        <button class="tab" data-category="ai">AI Tools</button>
+      </div>
+
+      <section id="toolsGrid" class="tools-grid"></section>
+      <section id="recentSection" class="recent-section hidden">
+        <div class="section-heading"><div><p class="eyebrow">YOUR ACTIVITY</p><h2>Recent history</h2></div></div>
+        <div id="recentList" class="recent-list"></div>
+      </section>
+    </main>
+
+    <section id="settingsPanel" class="settings-panel hidden">
+      <div class="panel-head">
+        <div><p class="eyebrow">PREFERENCES</p><h2>Settings</h2></div>
+        <button class="icon-button" id="closeSettings"><span class="material-icons">close</span></button>
+      </div>
+      <div class="settings-list">
+        <label class="setting-row"><span><b>Light theme</b><small>Switch appearance</small></span><input id="themeToggle" type="checkbox" class="switch"></label>
+        <label class="setting-row"><span><b>Accent color</b><small>Customize your glow</small></span><input id="accentPicker" type="color" value="#00e5ff"></label>
+        <label class="setting-row"><span><b>Language</b><small>Interface language</small></span><select id="languageSelect"><option>English</option><option>Español</option><option>日本語</option></select></label>
+        <button class="outline-button" id="exportButton"><span class="material-icons">download</span> Backup data</button>
+        <label class="outline-button file-button"><span class="material-icons">upload</span> Restore data<input id="importFile" type="file" accept=".json"></label>
+        <p class="version">CreatorHub v1.0.0 • Works offline</p>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-view="home"><span class="material-icons">home</span><small>Home</small></button>
+      <button class="nav-item" data-view="tools"><span class="material-icons">auto_awesome</span><small>Tools</small></button>
+      <button class="nav-item" data-view="ai"><span class="material-icons">smart_toy</span><small>AI</small></button>
+      <button class="nav-item" data-view="settings"><span class="material-icons">tune</span><small>Settings</small></button>
+    </nav>
+  </div>
+
+  <div id="toolModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="modal-close icon-button" id="closeModal"><span class="material-icons">close</span></button>
+      <div id="modalIcon" class="modal-icon"></div>
+      <p class="eyebrow" id="modalCategory"></p>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription" class="muted"></p>
+      <div id="toolForm"></div>
+      <div id="resultBox" class="result-box hidden"></div>
+      <button id="generateButton" class="primary-button"><span class="material-icons">auto_awesome</span> Generate</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
