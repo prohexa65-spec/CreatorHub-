@@ -1,0 +1,8 @@
+{
+  "name": "creatorhub",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openai": "latest"
+  }
+}
