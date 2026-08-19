@@ -1,5 +1,5 @@
-const CACHE_NAME="creatorhub-v1";
-const ASSETS=["./","./index.html","./styles.css","./script.js","./manifest.json"];
+const CACHE_NAME="creatorhub-v2";
+const ASSETS=["./","./index.html","./styles.css","./script.js","./ai.js","./manifest.json"];
 
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(ASSETS)));
