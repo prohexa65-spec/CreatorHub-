@@ -23,7 +23,7 @@ const TOOL_INSTRUCTIONS = {
   "Survival Challenge Generator": "Create a safe Minecraft survival challenge with clear rules, objective, duration, and difficulty.",
   "Script Generator": "Write a structured creator video script with hook, intro, main sections, transitions, and CTA. Keep it natural and engaging.",
   "Caption Generator": "Generate 10 short social captions for the supplied content. Keep them natural and platform-friendly.",
-  "Brainstorm Generator": "Expand the idea into multiple directions, variations, features, risks, and next experiments.",
+  "Brainstorm": "Expand the idea into multiple directions, variations, features, risks, and next experiments.",
   "Prompt Generator": "Write a high-quality reusable AI prompt for the supplied task. Include role, goal, context, constraints, and desired output format.",
   "Rewrite Tool": "Rewrite the supplied text to be clearer, more natural, and more engaging while preserving its meaning."
 };
@@ -57,10 +57,7 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   if (!process.env.OPENAI_API_KEY) return res.status(500).json({ error: "AI backend is not configured." });
-
-  if (rateLimited(getClientIp(req))) {
-    return res.status(429).json({ error: "Too many requests. Please try again in a minute." });
-  }
+  if (rateLimited(getClientIp(req))) return res.status(429).json({ error: "Too many requests. Please try again in a minute." });
 
   try {
     const { tool, category, context } = req.body || {};
@@ -68,15 +65,13 @@ export default async function handler(req, res) {
     const cleanCategory = String(category || "").trim();
     const cleanContext = String(context || "").trim().slice(0, 2000);
 
-    if (!cleanTool || !cleanContext) {
-      return res.status(400).json({ error: "Tool and context are required." });
-    }
+    if (!cleanTool || !cleanContext) return res.status(400).json({ error: "Tool and context are required." });
 
     const task = TOOL_INSTRUCTIONS[cleanTool] || `Help the user with the ${cleanTool} creator tool.`;
     const response = await openai.responses.create({
-      model: process.env.OPENAI_MODEL || "gpt-5.6-luna",
+      model: process.env.OPENAI_MODEL || "gpt-5",
       store: false,
-      instructions: `You are CreatorHub AI, a practical assistant for YouTube creators, musicians, gamers, and creative projects.\n\nCategory: ${cleanCategory}\nTool: ${cleanTool}\nTask: ${task}\n\nReturn useful, ready-to-use content. Do not invent factual claims, guaranteed results, real seed numbers, analytics, or external data that you cannot verify.`,
+      instructions: `You are CreatorHub AI, a practical assistant for YouTube creators, musicians, gamers, and creative projects.\nCategory: ${cleanCategory}\nTool: ${cleanTool}\nTask: ${task}\nReturn useful, ready-to-use content. Do not invent factual claims, guaranteed results, real seed numbers, analytics, or external data that you cannot verify.`,
       input: `User's request/context:\n${cleanContext}`
     });
 
